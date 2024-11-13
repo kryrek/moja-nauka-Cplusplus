@@ -1,5 +1,7 @@
 // Biblioteka zawierajaca funkcje wejscia wyjscia
 #include <iostream>
+// Biblioteka string, lancucha znakow
+#include <string>
 
 // Deklaracja funkcji
 int dodawanie(int pierwszyParametr, int drugiParametr)
@@ -39,6 +41,19 @@ int main()
     std::cout << "Suma2: " << sum << std::endl;
 
     std::cout << "Suma3: " << dodawanie(3, 42) << std::endl;
+
+    // Input Data
+    std::cout << "Wpisz swoje imie i wiek: ";
+
+    std::string imie;
+    // std::cin>>imie;
+    std::getline(std::cin, imie);
+
+    int wiek;
+    std::cin >> wiek;
+
+    // std::cin>>imie>>wiek;
+    std::cout << "Witaj " << imie << ", masz " << wiek << " lat." << std::endl;
 
     return 0;
     // Tu program sie konczy.
