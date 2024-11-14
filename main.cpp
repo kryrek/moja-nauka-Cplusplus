@@ -79,6 +79,27 @@ int main()
     int ilosc_samochodow = 3.5; // 3, jak wyzej, stracimy po przecinku, bo nie miesci sie w int
     std::cout << ilosc_rowerow << " " << ilosc_samochodow << std::endl;
 
+    // Sizeof
+    std::cout << "Wielkosc int: " << sizeof(int) << " " << sizeof(ilosc_rowerow) << std::endl;   // 4 bajty - zalecany typ
+    std::cout << "Wielkosc signed short int: " << sizeof(signed short) << std::endl;             // 2 bajty
+    std::cout << "Wielkosc unsigned long long int: " << sizeof(unsigned long long) << std::endl; // 8 bajty
+    // przy zmiennoprzecinkowych do precyzji wliczaja sie liczby przed przecinkiem
+    std::cout << "Wielkosc float: " << sizeof(float) << std::endl;   // 4 bajty
+    std::cout << "Wielkosc double: " << sizeof(double) << std::endl; // 8 bajty - zalecany typ
+    // std::boolalpha - wyswietla true false zamiast 1 0 w cout
+    std::cout << "Wielkosc boolean: " << sizeof(bool) << std::endl;       // 1 bajt
+    std::cout << "Wielkosc char: " << sizeof(char) << std::endl;          // 1 bajt
+    auto znak{'x'};                                                       // char
+    std::cout << "Wielkosc auto dla char: " << sizeof(znak) << std::endl; // 1 bajt
+    // blok funkcji, zmienne wystepuja tylko w niej
+    {
+        short int x{10}, y{20};
+        std::cout << "Wielkosc x = " << sizeof(x) << " bajty" << std::endl; // 2 bajty
+        std::cout << "Wielkosc y = " << sizeof(y) << "bajty" << std::endl;  // 2 bajty
+        auto wynik = x + y;
+        std::cout << "Wielkosc wyniku (x+y) = " << sizeof(wynik) << "bajtow" << std::endl; // 4 bajty bo dodawanie wymaga co najmniej 4 bajtow
+    }
+
     return 0;
     // Tu program sie konczy.
 }
