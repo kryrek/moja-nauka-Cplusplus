@@ -55,6 +55,14 @@ int main()
     // std::cin>>imie>>wiek;
     std::cout << "Witaj " << imie << ", masz " << wiek << " lat." << std::endl;
 
+    // Systemy numeryczne
+    int numDecimal = 15;
+    int numOctal = 017;
+    int numHexa = 0x0f;
+    int numBinary = 0b00001111;
+    // wszedzie wyswietli sie 15 bo to int
+    std::cout << numDecimal << " " << numOctal << " " << numHexa << " " << numBinary << std::endl;
+
     return 0;
     // Tu program sie konczy.
 }
