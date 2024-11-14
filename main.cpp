@@ -63,6 +63,22 @@ int main()
     // wszedzie wyswietli sie 15 bo to int
     std::cout << numDecimal << " " << numOctal << " " << numHexa << " " << numBinary << std::endl;
 
+    // Inicjalizacja
+    // Braced Initialization
+    int ilosc_psow{};                             // 0
+    int ilosc_kotow{1};                           // 1
+    int ilosc_zwierzat{ilosc_psow + ilosc_kotow}; // 1
+    // int ilosc_chomikow{2.5}                       // nieskompiluje sie
+    std::cout << ilosc_psow << " " << ilosc_kotow << " " << ilosc_zwierzat << std::endl;
+    // Functional Initialization
+    int ilosc_jablek(5);    // 5
+    int ilosc_kokosow(2.5); // skompiluje sie ale stracimy 0.5, mniej bezpieczne niz {}
+    std::cout << ilosc_jablek << " " << ilosc_kokosow << std::endl;
+    // Assignment Initialization
+    int ilosc_rowerow = 2;      // 2
+    int ilosc_samochodow = 3.5; // 3, jak wyzej, stracimy po przecinku, bo nie miesci sie w int
+    std::cout << ilosc_rowerow << " " << ilosc_samochodow << std::endl;
+
     return 0;
     // Tu program sie konczy.
 }
