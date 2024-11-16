@@ -100,6 +100,16 @@ int main()
         std::cout << "Wielkosc wyniku (x+y) = " << sizeof(wynik) << "bajtow" << std::endl; // 4 bajty bo dodawanie wymaga co najmniej 4 bajtow
     }
 
+    // Notacja naukowa Scientific Notation
+    double naukowa_plus{1.23e4};   // 1.23*10^4 = 12300
+    double naukowa_minus{1.23e-4}; // 0.000 123
+    // Dzielenie przez 0 liczby zmiennoprzecinkowej, nie zglasza ostrzezenia
+    double zero_double{};
+    double wynik_double1{naukowa_plus / zero_double};
+    double wynik_double2{zero_double / zero_double};
+    std::cout << "Wynik dzielenia double cos przez 0: " << wynik_double1 << std::endl; // "inf" nieskonczonosc
+    std::cout << "Wynik dzielenia double 0 przez 0: " << wynik_double2 << std::endl;   // "-NaN"
+
     return 0;
     // Tu program sie konczy.
 }
