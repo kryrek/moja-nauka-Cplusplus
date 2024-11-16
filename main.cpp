@@ -2,6 +2,8 @@
 #include <iostream>
 // Biblioteka string, lancucha znakow
 #include <string>
+// Biblioteka zawierajaca funkcje matematyczne
+#include <cmath>
 
 // Deklaracja funkcji
 int dodawanie(int pierwszyParametr, int drugiParametr)
@@ -109,6 +111,25 @@ int main()
     double wynik_double2{zero_double / zero_double};
     std::cout << "Wynik dzielenia double cos przez 0: " << wynik_double1 << std::endl; // "inf" nieskonczonosc
     std::cout << "Wynik dzielenia double 0 przez 0: " << wynik_double2 << std::endl;   // "-NaN"
+
+    // Operacje matematyczne
+    int liczba1{31};
+    int liczba2{10};
+    std::cout << "Dodawanie: " << liczba1 << " + " << liczba2 << " = " << liczba1 + liczba2 << std::endl;   // 41
+    std::cout << "Odejmowanie: " << liczba1 << " - " << liczba2 << " = " << liczba1 - liczba2 << std::endl; // 21
+    std::cout << "Mnożenie: " << liczba1 << " * " << liczba2 << " = " << liczba1 * liczba2 << std::endl;    // 310
+    std::cout << "Dzielenie: " << liczba1 << " / " << liczba2 << " = " << liczba1 / liczba2 << std::endl;   // 3
+    std::cout << "Modulo: " << liczba1 << " % " << liczba2 << " = " << liczba1 % liczba2 << std::endl;      // 1
+    // w operacjach matematycznych wystepuje kolejnosc wykonywania dzialan, wiekszosc od lewej do prawej
+    // Inkrementacja
+    std::cout << "PostInkrementacja: " << liczba1 << "++ wyswietli: " << liczba1++ << ", a po operacjii " << liczba1 << std::endl; // 31++, wyswietli najpierw 31, potem 32
+    std::cout << "PreInkrementacja:  ++" << liczba1 << " wyswietli: " << ++liczba1 << ", a po operacjii " << liczba1 << std::endl; // ++32, wyswietli najpierw 33, potem 33
+    // Operatory zlozone
+    std::cout << liczba2 << "+=10 = " << (liczba2 += 10) << std::endl; // 10+10=20
+    std::cout << liczba2 << "-=10 = " << (liczba2 -= 10) << std::endl; // 20-10=10
+    std::cout << liczba2 << "*=10 = " << (liczba2 *= 10) << std::endl; // 10*10=100
+    std::cout << liczba2 << "/=10 = " << (liczba2 /= 10) << std::endl; // 100/10=10
+    std::cout << liczba2 << "%=10 = " << (liczba2 %= 10) << std::endl; // 10%10=0
 
     return 0;
     // Tu program sie konczy.
