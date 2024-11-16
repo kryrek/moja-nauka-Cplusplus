@@ -131,6 +131,26 @@ int main()
     std::cout << liczba2 << "/=10 = " << (liczba2 /= 10) << std::endl; // 100/10=10
     std::cout << liczba2 << "%=10 = " << (liczba2 %= 10) << std::endl; // 10%10=0
 
+    // Operatory porownania
+    // trzeba pamietac o nawiasach przy operacjach, bo operator przekazania ma wyzszy priorytet wykoanania niz porownanie
+    std::cout << std::boolalpha; // zamienia wyniki operacji logicznych z 1 0 na true false, musi byc po cout
+    std::cout << liczba1 << " <  " << liczba2 << " " << (liczba1 < liczba2) << std::endl;
+    std::cout << liczba1 << " >  " << liczba2 << " " << (liczba1 > liczba2) << std::endl;
+    std::cout << liczba1 << " <= " << liczba2 << " " << (liczba1 <= liczba2) << std::endl;
+    std::cout << liczba1 << " == " << liczba2 << " " << (liczba1 == liczba2) << std::endl;
+    std::cout << liczba1 << " != " << liczba2 << " " << (liczba1 != liczba2) << std::endl;
+    // std::cout << std::noboolalpha; // przywraca wyswietlanie 1 i 0
+
+    // Operatory logiczne
+    bool a{false};
+    bool b{true};
+    bool c{true};
+    std::cout << "AND: a(" << a << ") && b(" << b << ") = " << (a && b) << std::endl;                        // false
+    std::cout << "AND: b(" << b << ") && c(" << c << ") = " << (b && c) << std::endl;                        // true
+    std::cout << "AND: a(" << a << ") && b(" << b << ") && c(" << c << ") = " << (a && b && c) << std::endl; // false
+    std::cout << "OR:  a(" << a << ") || b(" << b << ") = " << (a || b) << std::endl;                        // true
+    std::cout << "NOT: ! a(" << a << ") = " << !a << std::endl;                                              // true
+
     return 0;
     // Tu program sie konczy.
 }
