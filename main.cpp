@@ -4,6 +4,8 @@
 #include <string>
 // Biblioteka zawierajaca funkcje matematyczne
 #include <cmath>
+// Biblioteka zawierajaca funkcje formatowania tekstu
+#include <iomanip>
 
 // Deklaracja funkcji
 int dodawanie(int pierwszyParametr, int drugiParametr)
@@ -150,6 +152,27 @@ int main()
     std::cout << "AND: a(" << a << ") && b(" << b << ") && c(" << c << ") = " << (a && b && c) << std::endl; // false
     std::cout << "OR:  a(" << a << ") || b(" << b << ") = " << (a || b) << std::endl;                        // true
     std::cout << "NOT: ! a(" << a << ") = " << !a << std::endl;                                              // true
+
+    // Formatowanie tekstu
+    std::cout << "\tHello\n"; // tab i nowa linia
+    std::cout << std::left << std::setw(10) << "Hello " << std::setw(10) << " and Welcome " << std::endl;
+    /*
+    std::setw() // musi byc podany przed kazdym tekstem, wyswietla tekst jako tablice o dlugosci znakow lub caly jesli jest dluzszy, wymaga biblioteki ipmanio,
+    std::left/right // wyrownanie do lewej/prawej, domyslnie jest do prawej
+    std::setfill('-'); // zastapienie kazdego pustego pola znakami - , wymagana biblioteka iomanip
+    std::showpos; // pokazuje + i - przed liczba dziesietna, std::noshowpos wylacza + przed liczba
+    std::showbase; // pokazuje 0 przed oct lub 0x przed hex, nie dzialaja na liczby zmiennoprzecinkowe
+    std::setprecision(5); // ile miejsc po przecinku, wymagana biblioteka iomanip
+    std::showpoint; // pokazuje .0 do zmiennoprzecinkowych
+    std::uppercase; // zamienia litery na duze
+    */
+    std::cout << std::showbase << std::showpos << std::hex << liczba1 << std::endl;     // wyswietla liczbe 33 jako 0x21
+    std::cout << liczba1 << std::endl;                                                  // std::hex nadal dziala wiec 0x21
+    std::cout << std::oct << liczba1 << std::endl;                                      // tutaj liczba osemkowa 041
+    std::cout << std::dec << liczba1 << std::noshowbase << std::noshowpos << std::endl; // tu dziesietna, wiec dziala std::showbase +33
+    // zeby zadzialalo std::setprecision, nalezy ustawic std::fixed
+    std::cout << std::fixed << std::setprecision(2) << naukowa_minus << " " << naukowa_plus << std::endl; // 0.00 12300.00
+    std::cout.unsetf(std::ios::fixed | std::ios::scientific);                                             // cofa flagi formatujace tekst wedlug fixed i scientific
 
     return 0;
     // Tu program sie konczy.
