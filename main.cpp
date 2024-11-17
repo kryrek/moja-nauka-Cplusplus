@@ -174,6 +174,45 @@ int main()
     std::cout << std::fixed << std::setprecision(2) << naukowa_minus << " " << naukowa_plus << std::endl; // 0.00 12300.00
     std::cout.unsetf(std::ios::fixed | std::ios::scientific);                                             // cofa flagi formatujace tekst wedlug fixed i scientific
 
+    // Warunki
+    // if else w przypadku znalezienia pierwszego spelniajacego warunek zakonczy caly blok, a wielokrotne ify sprawdza wszystkie warunki
+    if (a == true)
+    {
+        std::cout << "A to true" << std::endl;
+    }
+    else if (a == false)
+    {
+        std::cout << "A to false" << std::endl;
+    }
+    else
+    {
+        std::cout << "A nie jest bool" << std::endl;
+    }
+
+    // Switch
+    // dziala z wartosciami calkowitymi, ale nie powinno sie uzywac bool, mimo ze jest konwertowany na int i zadziala
+    switch (a)
+    {
+    case true:
+        std::cout << "A to true" << std::endl;
+        break; // po wykryciu break zakonczy sie switch
+    case false:
+        std::cout << "A to false" << std::endl;
+        // tu nie ma break, a wiec switch bedzie realizowany do pierwszego breaka lub konca switch, nawet jesli nie spelnione sa warunki
+    default: // dziala jak else
+        std::cout << "A nie jest bool lub nie wykryto break" << std::endl;
+        break; // jeśli default jest na końcu to nie ma potrzeby, ale to dobra praktyka
+    }
+
+    // Ternary, operator warunkowy
+    (a == true) ? std::cout << "A to true" << std::endl : std::cout << "A to false" << std::endl; // warunek ? prawda : falsz;
+
+    bool fast{true};
+    // int speed{fast ? 120 : 50};
+    int speed{0};
+    speed = (fast == true) ? 120 : 50;
+    std::cout << "Samochod jedzie " << speed << " km/h" << std::endl; // 120
+
     return 0;
     // Tu program sie konczy.
 }
