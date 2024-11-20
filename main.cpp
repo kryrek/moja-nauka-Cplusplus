@@ -213,6 +213,37 @@ int main()
     speed = (fast == true) ? 120 : 50;
     std::cout << "Samochod jedzie " << speed << " km/h" << std::endl; // 120
 
+    // Petle
+    // petla sklada sie z: iteratora (i), starting pointu 0, condition'a < count, incrementacji/decrementacji, zawartosci
+
+    // for
+    const size_t count{5}; // size_t to 8 bajtowy typ danych uzywany do iteracji, reprezentujacy unsigned int
+
+    for (size_t i{0}; i < count; ++i) // to i przestanie istniec po zakonczeniu petli
+    {
+        std::cout << "Iteracja for [" << i + 1 << "]" << std::endl;
+    }
+
+    // while
+    // moze sie niewykonac
+    size_t i{0}; // to i bedzie istniec po zakonczeniu petli
+
+    while (i < count)
+    {
+        std::cout << "Iteracja while [" << i + 1 << "]" << std::endl;
+        ++i;
+    };
+
+    // do while
+    // wykona sie przynajmniej raz
+    i = 0; // i {0} zadziala tylko przy deklaracji
+
+    do
+    {
+        std::cout << "Iteracja do while [" << i + 1 << "]" << std::endl;
+        ++i;
+    } while (i < count);
+
     return 0;
     // Tu program sie konczy.
 }
