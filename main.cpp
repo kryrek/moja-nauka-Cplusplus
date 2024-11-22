@@ -244,6 +244,41 @@ int main()
         ++i;
     } while (i < count);
 
+    // Tablice, Arrays
+    // tablice rozpoczynaja sie od indeksu 0 i poczatkowo maja w sobie smieci
+    // nie trzeba podawac wielkosci tablicy, zostanie zdedukowana z ilosci inicjalizowanych elementow
+    int tablica[5]{1, 2, 3}; // tablica 5 elementowa zawierajaca wartosci 1,2,3,0,0
+    tablica[4] = 5;          // 1,2,3,0,5
+
+    auto sumawTablica{0};
+    // Range based for loop
+    for (auto element : tablica) // zalecany, bo czytelny i przy zmianie wielkosci tablicy nie trzeba nic modyfikowac, ale nie znamy indeksu
+    {
+        std::cout << element << " "; // 1 2 3 0 5
+        sumawTablica += element;
+    }
+    std::cout << std::endl
+              << "Suma elementow: " << sumawTablica << std::endl; // 11
+
+    int odwroconeIndeksyTablica = std::size(tablica);
+    size_t wielkoscTablicaDawniej{sizeof(tablica) / sizeof(tablica[0])}; // 5*4 bajty / 4 bajty = 5, przed c++17 nie mozna bylo uzywac std::size(tablica)
+    for (size_t i{0}; i < std::size(tablica); ++i)                       // tego fora tez nie trzeba modyfikowac i znamy indeks, ale jest mniej czytelny
+    {
+        std::cout << tablica[odwroconeIndeksyTablica - 1 - i] << " "; // odwrocone indeksy, 5 0 3 2 1
+    }
+    std::cout << std::endl;
+
+    // Tablice znakow, Array of characters
+    // by je wyswietlic nie trzeba robic petli
+    // na koncu deklaracji powinien byc null terminator \0 oznaczajacy koniec tablicy
+    // jesli tablica ma okreslona wielkosc, to null termination zostanie uzupelniony automatycznie, ale musi byc na niego miejsce
+    char tablicaZnakow[]{'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '\0'};
+    std::cout << tablicaZnakow << std::endl; // Hello World
+
+    // String literal
+    char tablicaZnakowString[]{"Hello"}; // poniewaz to string to automatycznie dodany zostanie znak konca i rozmiar bedzie 6
+    std::cout << tablicaZnakowString << " " << sizeof(tablicaZnakowString) << std::endl;
+
     return 0;
     // Tu program sie konczy.
 }
