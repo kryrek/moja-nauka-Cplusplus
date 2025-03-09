@@ -27,7 +27,7 @@ int main()
     // Compile Time Error - brak srednika, program sie nieskompiluje
     // std::cout << "Hello World! " << std::endl
 
-    // Run Time Error - dzielenie przez zero, program sie skompiluje
+    // Run Time Error - dzielenie przez zero, program sie skompiluje, ale moze zakonczyc sie errorem
     // int value = 7 / 0;
     // std::cout << "Value: " << value << std::endl;
 
@@ -50,8 +50,8 @@ int main()
     std::cout << "Wpisz swoje imie i wiek: ";
 
     std::string imie;
-    // std::cin>>imie;
-    std::getline(std::cin, imie);
+    // std::cin>>imie; //jedno slowo, ignorujac biale znaki
+    std::getline(std::cin, imie); // wszystko do entera
 
     int wiek;
     std::cin >> wiek;
@@ -252,7 +252,8 @@ int main()
 
     auto sumawTablica{0};
     // Range based for loop
-    for (auto element : tablica) // zalecany, bo czytelny i przy zmianie wielkosci tablicy nie trzeba nic modyfikowac, ale nie znamy indeksu
+    // zalecany, bo czytelny i przy zmianie wielkosci tablicy nie trzeba nic modyfikowac, ale nie znamy indeksu
+    for (auto element : tablica) // dla kazdego elementu tablicy, jesli chcemy pracowac na prawdziwych elementach, to trzeba uzyc auto&
     {
         std::cout << element << " "; // 1 2 3 0 5
         sumawTablica += element;
@@ -278,6 +279,26 @@ int main()
     // String literal
     char tablicaZnakowString[]{"Hello"}; // poniewaz to string to automatycznie dodany zostanie znak konca i rozmiar bedzie 6
     std::cout << tablicaZnakowString << " " << sizeof(tablicaZnakowString) << std::endl;
+
+    // Wskazniki, Pointers
+    // specjalny typ zmiennych, ktory zawiera adresy do innych zmiennych
+    // wielkosc wskaznika wynosi 8 bajtow, niezaleznie od typu
+    // wskazniki powinny byc zainicjalizowane, zeby nie zawierac "smieci"
+    int *p_number1{};        // default-initialization, deklaracja wskaznika, ktory jeszcze na nic nie wskazuje, zostanie zainicjalizowany jako nullptr
+    int *p_number2{nullptr}; // direct-list-initialization, dokladnie to samo, ale jest bardziej klarowne; nie uzywamy 0, ani zwyklego null
+
+    int number1doWskaznika{1};
+    p_number1 = &number1doWskaznika;
+    number1doWskaznika = 2;
+
+    int number3doWskaznika{3};
+    int *p_number3{&number3doWskaznika};
+
+    std::cout << "Wskaznik p_number1 zawierajacy adres " << p_number1 << " zawiera liczbe " << *p_number1 << std::endl; // wyluskanie wskaznika, dereferencing
+
+    // const pointer
+    const int *p_number31{&number3doWskaznika};       // nie mozna zmienic wartosci, ale mozna zmienic adres
+    const int *const p_number32{&number3doWskaznika}; // nie mozna zmienic wartosci, ani adresu
 
     return 0;
     // Tu program sie konczy.
