@@ -294,11 +294,11 @@ int main()
     int number3doWskaznika{3};
     int *p_number3{&number3doWskaznika};
 
-    std::cout << "Wskaznik p_number1 zawierajacy adres " << p_number1 << " zawiera liczbe " << *p_number1 << std::endl; // wyluskanie wskaznika, dereferencing
+    std::cout << "Wskaznik p_number1 zawierajacy adres " << p_number1 << " zawiera liczbe " << *p_number1 << std::endl; // wyluskanie wskaznika, dereferencing; zwroci 2
 
     // const pointer
     const int *p_number31{&number3doWskaznika};       // nie mozna zmienic wartosci, ale mozna zmienic adres
-    const int *const p_number32{&number3doWskaznika}; // nie mozna zmienic wartosci, ani adresu
+    const int *const p_number32{&number3doWskaznika}; // nie mozna zmienic wartosci, ani adresu (wartosci elementow, ani przypisac do innej zmiennej)
 
     /* Memory Map
     Każdy program jest procesem, który ma dostęp do pamięci z zakresu 0 do (2^ 32 lub 64)-1 bitów.
@@ -318,7 +318,7 @@ int main()
     // int *p_number4{new int};
     int *p_number41{new int{4}}; // *p_number41 = 4
 
-    *p_number4 = 28; // przy dynamicznej alokacji mozna podstawiac dane do niezainicjalizowanych wskaznikow, bo nie trafimy na "smieci"
+    *p_number4 = 28; // przy dynamicznej alokacji mozna podstawiac dane do niezainicjalizowanych wskaznikow (int *p_number4;), bo nie trafimy na "smieci"
     std::cout << "adres: " << p_number4 << "\twyluskanie: " << *p_number4 << std::endl;
     std::cout << "adres: " << p_number41 << "\twyluskanie: " << *p_number41 << std::endl;
 
@@ -344,7 +344,7 @@ int main()
     const size_t size = 5;
 
     int *p_array{new int[size]{}}; // tablica 5-elementowa zainicjalizowana zerami
-    if (!(p_array == nullptr))     // zabezpieczenie przed smieciami w pamieci
+    if (!(p_array == nullptr))     // zabezpieczenie przed smieciami w pamieci, ale tutaj zbedne bo tablice dynamiczne nie zwroca smieci
     {
         for (size_t i{}; i < size; i++)
         {
@@ -355,6 +355,51 @@ int main()
 
     delete[] p_array;
     p_array = nullptr;
+
+    // Referencje
+    // aliasy do zmiennej, dzialaja jak stale wskazniki
+    // musza byc zainicjalizowane przy deklaracji (nie moga byc puste)
+    // w przeciwienstwie do wskaznikow nie moga byc zmieniane, moga tylko byc zmieniane wartosci
+    // nie wymagaja wyluskania (dereferencing)
+
+    double double_value{12.34};
+    double &ref_double_value{double_value}; // referencja
+    double *p_double_value(&double_value);  // wskaznik
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Value: " << double_value << std::endl;         // wartosc 12.34
+    std::cout << "Reference: " << ref_double_value << std::endl; // zwroci wartosc 12.34
+    std::cout << "Pointer: " << p_double_value << std::endl;     // zwroci adres
+    std::cout << "Pointer: " << *p_double_value << std::endl;    // zwroci wartosc 12.34
+
+    double other_double_value{56.78};
+
+    ref_double_value = other_double_value; // to nie jest zmiana referencji - kopiujemy wartosci jednej zmiennej do drugiej
+    std::cout << "'Zmiana' referencji (przypisanie innej wartosci): " << std::endl;
+    std::cout << "Reference: " << ref_double_value << std::endl; // zwroci wartosc 56.78
+    std::cout << "Pointer: " << p_double_value << std::endl;     // zwroci ten sam adres
+    std::cout << "Pointer: " << *p_double_value << std::endl;    // zwroci wartosc 56.78
+
+    p_double_value = &other_double_value;
+    *p_double_value = 90.12;
+    std::cout << "Zmiana pointera: " << std::endl;
+    std::cout << "Reference: " << ref_double_value << std::endl; // zwroci wartosc 56.78
+    std::cout << "Pointer: " << p_double_value << std::endl;     // zwroci inny adres
+    std::cout << "Pointer: " << *p_double_value << std::endl;    // zwroci wartosc 90.12
+
+    int myArray[5] = {1, 2, 3, 4, 5};
+    int(&refToArray)[5] = myArray; //referencja do tablicy
+
+    // Decaying Array
+    // to tablica, o ktorej utracono informacje, np. przy przekazywaniu jej przez funkcję.
+    // staje się wtedy wskaźnikiem na pierwszy element tej tablicy, nawet jesli przekazemy wielkosc.
+    // zeby temu zapobiec mozna uzyc referencji do tablicy.
+    /*
+    template <size_t N>
+    void printSize(int (&refToArray)[N]) {  // arr to referencja do tablicy
+        std::cout << "Rozmiar: " << sizeof(refToArray) << " bajtów\n"; //tutaj &refToArray odnosiloby sie do adresu
+    }
+    */
 
     return 0;
     // Tu program sie konczy.
