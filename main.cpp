@@ -338,6 +338,24 @@ int main()
     // rozwiazanie - przed przypisaniem nowego adresu, nalezy zwolnic pamiec dynamiczna
     */
 
+    // Tablice dynamiczne
+    // nie obsluguja std::size, bo podcza tworzenia wskaznika, traci informacje, ktore wykorzystywane sa przez std::size
+    // nie obsluguja range based loops ( for (auto element : tablica) )
+    const size_t size = 5;
+
+    int *p_array{new int[size]{}}; // tablica 5-elementowa zainicjalizowana zerami
+    if (!(p_array == nullptr))     // zabezpieczenie przed smieciami w pamieci
+    {
+        for (size_t i{}; i < size; i++)
+        {
+            std::cout << "Adres w tablicy [" << i << "]: " << &p_array[i]
+                      << "\twyluskanie1: " << p_array[i] << "\twyluskanie2: " << *(p_array + 1) << std::endl; // na dwa sposoby
+        }
+    }
+
+    delete[] p_array;
+    p_array = nullptr;
+
     return 0;
     // Tu program sie konczy.
 }
