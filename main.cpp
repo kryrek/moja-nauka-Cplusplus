@@ -300,6 +300,44 @@ int main()
     const int *p_number31{&number3doWskaznika};       // nie mozna zmienic wartosci, ale mozna zmienic adres
     const int *const p_number32{&number3doWskaznika}; // nie mozna zmienic wartosci, ani adresu
 
+    /* Memory Map
+    Każdy program jest procesem, który ma dostęp do pamięci z zakresu 0 do (2^ 32 lub 64)-1 bitów.
+    Pamięć wirtualna, sprawia że program myśli, że jest jedynym uruchomionym na komputerze i ma dostęp do całych zasobów.
+    Memory Management Unit przydziela pamięć na rzeczywistym RAMie, wydzielając tylko tyle, ile jest w tej chwili potrzebne.
+    Jest to standard zdefiniowany przez system, dlatego przykladowo nie można uruchomić plików exe na Linuxie.
+    Memory Map jest podzielony na sekcje:
+    system, stack (lokalne zmienne), heap (dodatkowa pamięć), data, text (binarka programu)
+    */
+
+    // Dynamiczna alokacja pamieci (memory on the heap)
+    // przydziela wylaczny blok pamieci, przez co daje wieksza kontrole programiscie
+    // nalezy stsosowac operatory new i delete
+    int *p_number4{};
+    p_number4 = new int;
+    // int *p_number4 = new int;
+    // int *p_number4{new int};
+    int *p_number41{new int{4}}; // *p_number41 = 4
+
+    *p_number4 = 28; // przy dynamicznej alokacji mozna podstawiac dane do niezainicjalizowanych wskaznikow, bo nie trafimy na "smieci"
+    std::cout << "adres: " << p_number4 << "\twyluskanie: " << *p_number4 << std::endl;
+    std::cout << "adres: " << p_number41 << "\twyluskanie: " << *p_number41 << std::endl;
+
+    delete p_number4;
+    p_number4 = nullptr; // zabezpieczenie, dobra praktyka
+    delete p_number41;   // musi byc oddzielnie
+    p_number41 = nullptr;
+
+    /* Memory leaks - przyklad
+    int *p_leak{new int{10}}; // pamiec dynamiczna
+    int leak{20};             // pamiec statyczna
+    p_leak = &leak;           // tracimy dostep do dynamicznej pamieci, ale ona nadal tam jest
+    p_leak = new int{30};     // przypadek taki sam jak wyzej, tracimy dostep do pamieci
+    {
+        int *p_leak2{new int{40}}; // tutaj tez tracimy dostep do pamieci
+    }
+    // rozwiazanie - przed przypisaniem nowego adresu, nalezy zwolnic pamiec dynamiczna
+    */
+
     return 0;
     // Tu program sie konczy.
 }
