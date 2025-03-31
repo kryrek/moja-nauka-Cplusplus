@@ -6,6 +6,8 @@
 #include <cmath>
 // Biblioteka zawierajaca funkcje formatowania tekstu
 #include <iomanip>
+// Biblioteka zawierajaca funkcje operacji na string
+#include <cstring>
 
 // Deklaracja funkcji
 int dodawanie(int pierwszyParametr, int drugiParametr)
@@ -388,7 +390,7 @@ int main()
     std::cout << "Pointer: " << *p_double_value << std::endl;    // zwroci wartosc 90.12
 
     int myArray[5] = {1, 2, 3, 4, 5};
-    int(&refToArray)[5] = myArray; //referencja do tablicy
+    int(&refToArray)[5] = myArray; // referencja do tablicy
 
     // Decaying Array
     // to tablica, o ktorej utracono informacje, np. przy przekazywaniu jej przez funkcję.
@@ -400,6 +402,67 @@ int main()
         std::cout << "Rozmiar: " << sizeof(refToArray) << " bajtów\n"; //tutaj &refToArray odnosiloby sie do adresu
     }
     */
+
+    // std::string - wymagana biblioteka string
+    //  mozna zmieniac w czasie rzeczywistym
+    //  w przypadku const * char zmiana tekstu spowoduje, ze jedna tablica zostanie w pamieci
+    std::string planeta1;
+    std::string planeta2{"Wenus"};      // zapisze Wenus
+    std::string planeta3{"Ziemia", 1};  // zapisze tylko 1 litere, Z
+    std::string planeta4{"Mars", 1, 4}; // zapisze 4 litery zaczynajac od 1, ars
+    std::string znaki(5, 'x');          // nawiasy okragle, zapize 5-krotnie x
+
+    std::cout << planeta1 << " " << planeta2 << " " << planeta3 << " " << planeta4 << " " << znaki << std::endl; // Wenus Z ars xxxxx
+
+    // std:strlen, wymaga biblioteki cstring
+    // wyswietla dlugosc stringa, nawet w przypadku decaying array, nie zawiera null character \0
+
+    const char tekst1[]{"Wiadomosc testowa."};
+    const char *tekst2{"Wiadomosc testowa."}; // decaying array
+
+    std::cout << strlen(tekst1) << " " << strlen(tekst2) << std::endl; // 18 18
+    std::cout << sizeof(tekst1) << " " << sizeof(tekst2) << std::endl; // 19 8
+
+    // std::strcmp
+    // porownuje tablice znakow, zwracajac -1, 0, 1, wymaga bliblioteki cstring
+    char tekst21[]{"Aaa"};
+    char tekst22[]{"Abb"};
+    std::cout << std::strcmp(tekst21, tekst22) << std::endl; // zwroci -1 bo Aaa < Abb
+    std::cout << std::strcmp(tekst22, tekst21) << std::endl; // zwroci 1 bo Abb > Aaa
+    std::cout << std::strcmp(tekst21, tekst21) << std::endl; // zwroci 0 bo a rowne
+
+    std::cout << std::strncmp(tekst21, tekst22, 1) << std::endl; // zwroci 0, bo do 1 znaku jest taki sam
+
+    // std::strcat
+    // laczy dwa stringi w jeden, wymaga biblioteki cstring
+    // docelowy string musi byc odpowiedni dlugi
+    char tekst31[50] = "Hello";
+    char tekst32[50] = "World";
+
+    std::cout << std::strcat(tekst31, tekst32) << std::endl;        // HelloWorld
+    std::cout << std::strcat(tekst31, " z dopiskiem") << std::endl; // HelloWorld z dopiskiem
+
+    // std::strcpy
+    // podmienia zawartosc jednej tablicy druga tablica, wymaga biblioteki cstring
+    // alternatywnie mozna wykorzystac string, zeby podmienic dwie tablice, bo same tablice sa stalymi wskaznikami
+
+    // tekst31 = tekst32 // blad bo to stale wskazniki
+    std::cout << std::strcpy(tekst32, tekst31) << std::endl; // zamieni World na HelloWorld z dopiskiem
+
+    // std::strchr
+    // wyszukuje wystapienia znaku w lancuchu znakow, wymaga biblioteki cstring
+    const char *str{"Jakis tekst. Jakiś inny tekst."};
+    char target = 'J';
+    const char *result = str; // dzieki temu petla while wykona sie 2 razy, a nie 30
+    size_t iterations{};
+
+    while ((result = std::strchr(result, target)) != nullptr)
+    {
+        ++result;
+        ++iterations;
+        std::cout << "Znaleziono " << target << " w tablicy str w iteracji " << iterations << std::endl;
+    }
+    std::cout << iterations << std::endl; // 2
 
     return 0;
     // Tu program sie konczy.
